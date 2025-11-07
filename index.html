@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="es">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataCore Solutions - Centro de Datos Empresarial</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+    
+    html, body {
+      height: 100%;
+    }
+    
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    
+    .nav-links a:hover {
+      color: #60a5fa;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(96,165,250,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .hero-content {
+      max-width: 1400px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: #ffffff;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .hero-text .tagline {
+      font-size: 1.5rem;
+      color: #60a5fa;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+    
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid #60a5fa;
+    }
+    
+    .btn-secondary:hover {
+      background: #60a5fa;
+      transform: translateY(-2px);
+    }
+    
+    /* Hero Visual */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .server-illustration {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+    }
+    
+    .video-container {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border: 2px solid #3b82f6;
+      aspect-ratio: 16 / 9;
+    }
+    
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 5rem 2rem;
+      background: #f8fafc;
+    }
+    
+    .features-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .features h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #0f172a;
+      margin-bottom: 3rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      color: #0f172a;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card p {
+      color: #64748b;
+      line-height: 1.7;
+    }
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-text .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body><!-- Navigation -->
+  <nav>
+   <div class="nav-container">
+    <div class="logo">
+     <svg class="logo-icon" viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="24" height="24" rx="4" fill="#3b82f6" /> <rect x="8" y="12" width="4" height="12" fill="white" /> <rect x="14" y="8" width="4" height="16" fill="white" /> <rect x="20" y="10" width="4" height="14" fill="white" />
+     </svg><span id="company-name">DataCore Solutions</span>
+    </div>
+    <ul class="nav-links">
+     <li><a href="#hero">Inicio</a></li>
+     <li><a href="#features">Soluciones</a></li>
+     <li><a href="#features">Contacto</a></li>
+    </ul>
+   </div>
+  </nav><!-- Hero Section -->
+  <section class="hero" id="hero">
+   <div class="hero-content">
+    <div class="hero-text">
+     <h1 id="hero-title">Infraestructura de Datos de Clase Mundial</h1>
+     <div class="tagline" id="hero-tagline">
+      Potencia, Seguridad y Escalabilidad
+     </div>
+     <p id="hero-description">Soluciones empresariales de centros de datos diseñadas para impulsar su transformación digital con tecnología de vanguardia y soporte 24/7.</p>
+     <div class="cta-buttons"><button class="btn btn-primary" id="primary-button">Comenzar Ahora</button> <button class="btn btn-secondary" id="secondary-button">Conocer Más</button>
+     </div>
+    </div>
+    <div class="hero-visual">
+     <div id="video-wrapper" class="video-container"><iframe id="hero-video" src="https://www.youtube.com/embed/N0x-cbw8fxo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+     </div>
+     <svg id="server-illustration" class="server-illustration" viewbox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;"><!-- Server Rack --> <rect x="150" y="50" width="200" height="300" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2" /> <!-- Server Units --> <g id="server-units">
+       <rect x="170" y="70" width="160" height="40" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+       <circle cx="190" cy="90" r="4" fill="#10b981" />
+       <circle cx="210" cy="90" r="4" fill="#10b981" />
+       <rect x="230" y="85" width="80" height="10" rx="2" fill="#334155" />
+       <rect x="170" y="120" width="160" height="40" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+       <circle cx="190" cy="140" r="4" fill="#10b981" />
+       <circle cx="210" cy="140" r="4" fill="#10b981" />
+       <rect x="230" y="135" width="80" height="10" rx="2" fill="#334155" />
+       <rect x="170" y="170" width="160" height="40" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+       <circle cx="190" cy="190" r="4" fill="#10b981" />
+       <circle cx="210" cy="190" r="4" fill="#10b981" />
+       <rect x="230" y="185" width="80" height="10" rx="2" fill="#334155" />
+       <rect x="170" y="220" width="160" height="40" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+       <circle cx="190" cy="240" r="4" fill="#10b981" />
+       <circle cx="210" cy="240" r="4" fill="#10b981" />
+       <rect x="230" y="235" width="80" height="10" rx="2" fill="#334155" />
+       <rect x="170" y="270" width="160" height="40" rx="4" fill="#0f172a" stroke="#60a5fa" stroke-width="1" />
+       <circle cx="190" cy="290" r="4" fill="#10b981" />
+       <circle cx="210" cy="290" r="4" fill="#10b981" />
+       <rect x="230" y="285" width="80" height="10" rx="2" fill="#334155" />
+      </g> <!-- Connection Lines --> <path d="M 100 200 L 150 200" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5">
+       <animate attributename="stroke-dashoffset" from="0" to="10" dur="1s" repeatcount="indefinite" />
+      </path> <path d="M 350 200 L 400 200" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5">
+       <animate attributename="stroke-dashoffset" from="0" to="10" dur="1s" repeatcount="indefinite" />
+      </path> <!-- Network Nodes --> <circle cx="100" cy="200" r="15" fill="#3b82f6" opacity="0.8">
+       <animate attributename="opacity" values="0.8;1;0.8" dur="2s" repeatcount="indefinite" />
+      </circle> <circle cx="400" cy="200" r="15" fill="#3b82f6" opacity="0.8">
+       <animate attributename="opacity" values="0.8;1;0.8" dur="2s" repeatcount="indefinite" />
+      </circle>
+     </svg>
+    </div>
+   </div>
+  </section><!-- Features Section -->
+  <section class="features" id="features">
+   <div class="features-container">
+    <h2 id="features-title">Nuestras Soluciones</h2>
+    <div class="features-grid">
+     <div class="feature-card">
+      <svg class="feature-icon" viewbox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="#dbeafe" /> <path d="M 20 30 L 28 38 L 42 22" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <h3 id="feature-1-title">Alto Rendimiento</h3>
+      <p id="feature-1-desc">Infraestructura optimizada con procesadores de última generación y almacenamiento SSD NVMe para máxima velocidad.</p>
+     </div>
+     <div class="feature-card">
+      <svg class="feature-icon" viewbox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="#dbeafe" /> <rect x="20" y="15" width="20" height="25" rx="2" stroke="#3b82f6" stroke-width="2" fill="none" /> <path d="M 25 20 L 35 20 M 25 25 L 35 25 M 25 30 L 35 30" stroke="#3b82f6" stroke-width="2" /> <circle cx="30" cy="45" r="3" fill="#3b82f6" />
+      </svg>
+      <h3 id="feature-2-title">Seguridad Avanzada</h3>
+      <p id="feature-2-desc">Protección multicapa con cifrado de datos, firewalls dedicados y monitoreo de seguridad 24/7.</p>
+     </div>
+     <div class="feature-card">
+      <svg class="feature-icon" viewbox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="28" fill="#dbeafe" /> <rect x="15" y="25" width="12" height="20" rx="2" fill="#3b82f6" /> <rect x="24" y="20" width="12" height="25" rx="2" fill="#60a5fa" /> <rect x="33" y="15" width="12" height="30" rx="2" fill="#93c5fd" />
+      </svg>
+      <h3 id="feature-3-title">Escalabilidad Total</h3>
+      <p id="feature-3-desc">Crezca sin límites con recursos escalables que se adaptan a las necesidades de su negocio en tiempo real.</p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <script>
+    const defaultConfig = {
+      company_name: "DataCore Solutions",
+      hero_title: "Infraestructura de Datos de Clase Mundial",
+      hero_tagline: "Potencia, Seguridad y Escalabilidad",
+      hero_description: "Soluciones empresariales de centros de datos diseñadas para impulsar su transformación digital con tecnología de vanguardia y soporte 24/7.",
+      video_url: "https://www.youtube.com/embed/N0x-cbw8fxo",
+      primary_button_text: "Comenzar Ahora",
+      secondary_button_text: "Conocer Más",
+      features_title: "Nuestras Soluciones",
+      feature_1_title: "Alto Rendimiento",
+      feature_1_desc: "Infraestructura optimizada con procesadores de última generación y almacenamiento SSD NVMe para máxima velocidad.",
+      feature_2_title: "Seguridad Avanzada",
+      feature_2_desc: "Protección multicapa con cifrado de datos, firewalls dedicados y monitoreo de seguridad 24/7.",
+      feature_3_title: "Escalabilidad Total",
+      feature_3_desc: "Crezca sin límites con recursos escalables que se adaptan a las necesidades de su negocio en tiempo real.",
+      background_color: "#0f172a",
+      surface_color: "#ffffff",
+      text_color: "#1a1a1a",
+      primary_action_color: "#3b82f6",
+      secondary_action_color: "#60a5fa",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      // Apply font family
+      document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+      
+      // Apply font sizes
+      document.querySelector('.hero-text h1').style.fontSize = `${baseSize * 2.2}px`;
+      document.querySelector('.hero-text .tagline').style.fontSize = `${baseSize * 1.5}px`;
+      document.querySelector('.hero-text p').style.fontSize = `${baseSize * 1.1}px`;
+      document.querySelector('.features h2').style.fontSize = `${baseSize * 2}px`;
+      document.querySelectorAll('.feature-card h3').forEach(el => {
+        el.style.fontSize = `${baseSize * 1.5}px`;
+      });
+      document.querySelectorAll('.feature-card p').forEach(el => {
+        el.style.fontSize = `${baseSize}px`;
+      });
+      document.querySelectorAll('.btn').forEach(el => {
+        el.style.fontSize = `${baseSize}px`;
+      });
+      
+      // Apply colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+      
+      document.querySelector('.hero').style.background = `linear-gradient(135deg, ${bgColor} 0%, #1e293b 100%)`;
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.style.background = surfaceColor;
+      });
+      document.body.style.color = textColor;
+      document.querySelectorAll('.feature-card h3').forEach(el => {
+        el.style.color = textColor;
+      });
+      document.querySelector('.btn-primary').style.background = primaryColor;
+      document.querySelector('.btn-secondary').style.borderColor = secondaryColor;
+      document.querySelector('.hero-text .tagline').style.color = secondaryColor;
+      
+      // Update text content
+      document.getElementById('company-name').textContent = config.company_name || defaultConfig.company_name;
+      document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-tagline').textContent = config.hero_tagline || defaultConfig.hero_tagline;
+      document.getElementById('hero-description').textContent = config.hero_description || defaultConfig.hero_description;
+      document.getElementById('primary-button').textContent = config.primary_button_text || defaultConfig.primary_button_text;
+      document.getElementById('secondary-button').textContent = config.secondary_button_text || defaultConfig.secondary_button_text;
+      document.getElementById('features-title').textContent = config.features_title || defaultConfig.features_title;
+      document.getElementById('feature-1-title').textContent = config.feature_1_title || defaultConfig.feature_1_title;
+      document.getElementById('feature-1-desc').textContent = config.feature_1_desc || defaultConfig.feature_1_desc;
+      document.getElementById('feature-2-title').textContent = config.feature_2_title || defaultConfig.feature_2_title;
+      document.getElementById('feature-2-desc').textContent = config.feature_2_desc || defaultConfig.feature_2_desc;
+      document.getElementById('feature-3-title').textContent = config.feature_3_title || defaultConfig.feature_3_title;
+      document.getElementById('feature-3-desc').textContent = config.feature_3_desc || defaultConfig.feature_3_desc;
+      
+      // Handle video URL
+      const videoUrl = config.video_url || defaultConfig.video_url;
+      const videoWrapper = document.getElementById('video-wrapper');
+      const heroVideo = document.getElementById('hero-video');
+      const serverIllustration = document.getElementById('server-illustration');
+      
+      if (videoUrl && videoUrl.trim() !== '') {
+        heroVideo.src = videoUrl;
+        videoWrapper.style.display = 'block';
+        serverIllustration.style.display = 'none';
+      } else {
+        videoWrapper.style.display = 'none';
+        serverIllustration.style.display = 'block';
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.config.surface_color = value;
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.config.primary_action_color = value;
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.config.secondary_action_color = value;
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            if (window.elementSdk) {
+              window.elementSdk.config.font_family = value;
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            if (window.elementSdk) {
+              window.elementSdk.config.font_size = value;
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["company_name", config.company_name || defaultConfig.company_name],
+        ["hero_title", config.hero_title || defaultConfig.hero_title],
+        ["hero_tagline", config.hero_tagline || defaultConfig.hero_tagline],
+        ["hero_description", config.hero_description || defaultConfig.hero_description],
+        ["video_url", config.video_url || defaultConfig.video_url],
+        ["primary_button_text", config.primary_button_text || defaultConfig.primary_button_text],
+        ["secondary_button_text", config.secondary_button_text || defaultConfig.secondary_button_text],
+        ["features_title", config.features_title || defaultConfig.features_title],
+        ["feature_1_title", config.feature_1_title || defaultConfig.feature_1_title],
+        ["feature_1_desc", config.feature_1_desc || defaultConfig.feature_1_desc],
+        ["feature_2_title", config.feature_2_title || defaultConfig.feature_2_title],
+        ["feature_2_desc", config.feature_2_desc || defaultConfig.feature_2_desc],
+        ["feature_3_title", config.feature_3_title || defaultConfig.feature_3_title],
+        ["feature_3_desc", config.feature_3_desc || defaultConfig.feature_3_desc]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99aa51ef85dcc1ca',t:'MTc2MjQ5MjE4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
